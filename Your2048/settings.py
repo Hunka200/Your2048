@@ -43,6 +43,7 @@ INSTALLED_APPS = (
 )
 
 DJANGORESIZED_DEFAULT_SIZE = [107, 107]
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
