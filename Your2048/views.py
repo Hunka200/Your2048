@@ -26,8 +26,8 @@ def home(request):
                 game.save()
                 return HttpResponseRedirect('/' + game.url)
             else:
-                print f.errors
-                return HttpResponseRedirect('/?msg=fail')
+                ctx = {'form': f}
+                return render_to_response('setup.html', RequestContext(request,ctx))
         else:
             initial = {}
             try:

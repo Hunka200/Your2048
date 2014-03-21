@@ -4,7 +4,7 @@ from django_resized import ResizedImageField
 
 class Game(models.Model):
     owner = models.ForeignKey(User)
-    url = models.CharField(max_length=40)
+    url = models.CharField(max_length=40, unique = True)
     name = models.CharField(max_length=40)
     desc = models.TextField()
     tile2 = ResizedImageField(upload_to='tiles')
