@@ -5,7 +5,7 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 # 'username' | 'email' | 'username_email'
-ACCOUNT_AUTHENTICATION_METHOD='username'
+ACCOUNT_AUTHENTICATION_METHOD='email'
 
 # The URL to redirect to after a successful e-mail confirmation, in case no
 # user is logged in. Default value is settings.LOGIN_URL.
@@ -19,7 +19,7 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL='webbify.in'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 10000
 
 # The user is required to hand over an e-mail address when signing up.
-ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 
 # Determines the e-mail verification method during signup. When set to
 # "mandatory" the user is blocked from logging in until the email
