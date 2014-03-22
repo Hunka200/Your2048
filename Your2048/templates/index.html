@@ -49,7 +49,7 @@
 
   </style>
 </head>
-    {% include "ga.html "%}
+    {% include "analytics.html" %}
 <body>
   <div class="container">
     <div class="heading">
@@ -116,5 +116,6 @@
   <script src="/static/js/local_score_manager.js"></script>
   <script src="/static/js/game_manager.js"></script>
   <script src="/static/js/application.js"></script>
+  <script>var imgs = ['{{ game.tile4.url }}','{{ game.tile8.url }}','{{ game.tile16.url }}','{{ game.tile32.url }}','{{ game.tile64.url }}','{{ game.tile128.url }}','{{ game.tile256.url }}','{{ game.tile512.url }}','{{ game.tile1024.url }}', '{{ game.tile2048.url }}']; for(var i=0; i<imgs.length; i++) { document.createElement('img').src = imgs[i]; }</script>
 </body>
 </html>

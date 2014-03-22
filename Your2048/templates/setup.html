@@ -11,13 +11,16 @@ a {
 
 
     </style>
-    {% include "ga.html "%}
+    {% include "analytics.html" %}
 </head>
 <body>
     {% load bootstrap %}
     <div class="container">
         <div class="heading"><h1 class='title'>2048</h1></div>
-        <p class="game-intro"><strong>Create your own version of 2048 game</strong></p><br/>
+        <p class="game-intro"><strong>Create your own version of 2048 game</strong><br/>
+        <small>Settings url to 'abc' creates your game at url http://2048.anilshanbhag.in/abc</small><br/>
+        <small>Tile2, Tile4, Tile8 .. represent the 2,4,8.. numbered tiles in the game</small></p><br/>
+
         <form action="/" method="post" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ form | bootstrap }}
