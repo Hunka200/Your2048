@@ -4,14 +4,24 @@
   <meta charset="utf-8">
   <title>{{ game.name }}</title>
 
-  <link href="/static/css/main.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="/static/favicon.ico">
   <link rel="apple-touch-icon" href="/static/meta/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
-
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
+  <meta property="og:title" content="{{ game.name }}, My Own 2048 Game" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="http://2048.anilshanbhag.in/static/img/og_image.jpg" />
+  <meta property="og:url" content="http://2048.anilshanbhag.in/{{ game.url }}" />
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css">
+  <style>
+  .score-container, .best-container {
+    -webkit-box-sizing: content-box!important;
+    box-sizing: content-box!important;
+  }
+  </style>
+  <link href="/static/css/main.css" rel="stylesheet" type="text/css">
   <style>
   .tile.tile-2 .tile-inner {
     background: #fff url('{{ game.tile2.url }}');
@@ -51,7 +61,7 @@
 </head>
     {% include "analytics.html" %}
 <body>
-  <div class="container">
+  <div class="container" style='padding: 0;'>
     <div class="heading">
       <h1 class="title">{{ game.name }}</h1>
       <div class="scores-container">
@@ -59,7 +69,7 @@
         <div class="best-container">0</div>
       </div>
     </div>
-    <p class="game-intro">{{ game.desc }}</p>
+    <p class="game-intro">{{ game.desc }}</p><p style='text-align: right;'><a style='text-decoration: none' id='shareMe' href='#'>Share This</a></p>
 
     <div class="game-container">
       <div class="game-message">
@@ -108,14 +118,59 @@
     <hr>
   </div>
 
-  <script src="/static/js/animframe_polyfill.js"></script>
-  <script src="/static/js/keyboard_input_manager.js"></script>
-  <script src="/static/js/html_actuator.js"></script>
-  <script src="/static/js/grid.js"></script>
-  <script src="/static/js/tile.js"></script>
-  <script src="/static/js/local_score_manager.js"></script>
-  <script src="/static/js/game_manager.js"></script>
-  <script src="/static/js/application.js"></script>
-  <script>var imgs = ['{{ game.tile2.url }}','{{ game.tile4.url }}','{{ game.tile8.url }}','{{ game.tile16.url }}','{{ game.tile32.url }}','{{ game.tile64.url }}','{{ game.tile128.url }}','{{ game.tile256.url }}','{{ game.tile512.url }}','{{ game.tile1024.url }}', '{{ game.tile2048.url }}']; for(var i=0; i<imgs.length; i++) { document.createElement('img').src = imgs[i]; }</script>
+<div id="shareIt" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">All set of play !</h4>
+      </div>
+      <div class="modal-body">
+        <p>Share {{ game.name }} 2048 game with your friends</p>
+        <table><tr>
+          <td><div class="fb-share-button" data-href="http://2048.anilshanbhag.in/{{game.url}}/" data-type="button"></div>
+          </td>
+          <td style='padding-left: 10px;padding-top:10px;'><a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text="Checkout {{ game.name }} 2048 game at http://2048.anilshanbhag.in/{{ game.url }}/" data-via="WebbifyApp" data-related="WebbifyApp" data-hashtags="Your2048">Tweet</a>
+          </td>
+        </tr></table>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <br/>
+        <p><br/>Like us on Facebook</p>
+        <div class="fb-like" data-href="https://www.facebook.com/webbify" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=231109170377260";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js'></script>
+<script>
+function showModal(){
+  $('#shareIt').modal('show');
+}
+function bootloader() {
+  if (localStorage['modal'] != 'True') {
+    showModal();
+    localStorage['modal'] = 'True';
+  }
+}
+
+document.onready = bootloader;
+$('#shareMe').click(showModal);
+
+var imgs = ['{{ game.tile2.url }}','{{ game.tile4.url }}','{{ game.tile8.url }}','{{ game.tile16.url }}','{{ game.tile32.url }}','{{ game.tile64.url }}','{{ game.tile128.url }}','{{ game.tile256.url }}','{{ game.tile512.url }}','{{ game.tile1024.url }}', '{{ game.tile2048.url }}']; for(var i=0; i<imgs.length; i++) { document.createElement('img').src = imgs[i]; }
+</script>
+  <script src="/static/js/main.min.js"></script>
 </body>
 </html>

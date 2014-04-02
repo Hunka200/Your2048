@@ -24,7 +24,7 @@ def home(request):
                 game = f.save(commit=False)
                 game.owner = request.user
                 game.save()
-                return HttpResponseRedirect('/' + game.url)
+                return HttpResponseRedirect('/' + game.url )
             else:
                 ctx = {'form': f}
                 return render_to_response('setup.html', RequestContext(request,ctx))
